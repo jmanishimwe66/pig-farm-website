@@ -13,7 +13,7 @@ A responsive business website designed to introduce a pig farm, showcase its act
 
 - Homepage with farm introduction and featured offerings.
 - About the farm and project overview.
-- Listings for pigs, piglets, and meat products.
+- Listings for pigs, piglets
 - Product descriptions, prices, and availability where provided.
 - Farm image gallery.
 - Contact information and location.
