@@ -26,14 +26,16 @@ import serviceBreedingStock from "./images/service-breeding-stock.jpeg"
 import serviceOrganicManure from "./images/service-organic-manure.jpeg"
 /** Crop / soil work (supporting “what we do” manure & land) */
 import unsplashWhatWeDoLand from "./images/unsplash-what-we-do.jpeg"
+/** Home hero background video */
+import heroVideo from "./video/19578125-hd_1280_720_30fps.mp4"
 
 /**
  * Central image map — local assets + Unsplash downloads.
- * Hero farm video: Mixkit “Pig attached with a rope…” → /videos/hero.mp4
- * https://mixkit.co/free-stock-video/pig-attached-with-a-rope-to-a-tree-eats-from-11150/
+ * Hero farm video: src/assets/video/19578125-hd_1280_720_30fps.mp4
  */
 export const images = {
   hero: heroPng,
+  heroVideo,
   manureSustainability,
   pigCloseupTall,
   pigFacing,

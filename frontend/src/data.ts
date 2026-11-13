@@ -32,8 +32,7 @@ export const heroCopy = {
   title: "A growing pig business building a sustainable farm",
   subtitle:
     "Strong Livestock raises and sells pigs in Rugerero, Rwanda—improving our land, using manure wisely, and creating more income opportunities.",
-  video: "/videos/hero.mp4",
-  poster: images.unsplashWhatWeDo,
+  video: images.heroVideo,
   videoLabel: "Farm livestock video — Strong Livestock pig farming",
 } as const
 
