@@ -1,11 +1,11 @@
-# Use Dockerfile builder so Railway does not need Railpack (GitHub download).
+# Build context = frontend/ (Railway Root Directory)
 FROM node:22-alpine AS build
 WORKDIR /app
 
-COPY frontend/package.json frontend/package-lock.json ./
+COPY package.json package-lock.json ./
 RUN npm ci
 
-COPY frontend/ ./
+COPY . .
 RUN npm run build
 
 FROM nginx:alpine
