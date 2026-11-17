@@ -1,4 +1,4 @@
-export type AppView = "home" | "about" | "story" | "farm-life" | "shop" | "checkout" | "contact"
+export type AppView = "home" | "about" | "story" | "farm-life" | "shop" | "checkout"
 
 export type ShopCategoryParam = "pigs" | "manure" | "regen" | null
 
@@ -21,7 +21,7 @@ export function viewFromPath(pathname = window.location.pathname): AppView {
   if (value === "/story") return "story"
   if (value === "/farm-life") return "farm-life"
   if (value === "/checkout") return "checkout"
-  if (value === "/contact") return "contact"
+  if (value === "/contact") return "home"
   if (value === "/shop" || value.startsWith("/shop/")) return "shop"
   return "home"
 }
@@ -39,8 +39,20 @@ export function pathForView(view: AppView, shopCategory?: ShopCategoryParam): st
   if (view === "farm-life") return "/farm-life"
   if (view === "shop") return shopCategory ? `/shop/${shopCategory}` : "/shop"
   if (view === "checkout") return "/checkout"
-  if (view === "contact") return "/contact"
   return "/"
+}
+
+export function goToContactSection() {
+  const onHome = viewFromPath() === "home"
+  if (!onHome) {
+    goToView("home")
+  }
+  window.setTimeout(() => {
+    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "start" })
+    if (normalizePath(window.location.pathname) !== "/" || window.location.hash !== "#contact") {
+      window.history.replaceState(null, "", "/#contact")
+    }
+  }, onHome ? 0 : 100)
 }
 
 export function goToView(view: AppView, shopCategory?: ShopCategoryParam) {
@@ -67,6 +79,10 @@ export function isPageHash(href: string): boolean {
 }
 
 export function navigateHref(href: string) {
+  if (href === "/contact" || href === "/#contact" || href === "#contact") {
+    goToContactSection()
+    return
+  }
   if (href.startsWith("#/")) {
     window.history.pushState(null, "", href.slice(1))
     window.dispatchEvent(new Event("app:navigation"))

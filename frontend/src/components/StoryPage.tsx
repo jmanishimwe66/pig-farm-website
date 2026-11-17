@@ -1,5 +1,5 @@
 import { storyPage } from "../data.ts"
-import { goToView } from "../navigation.ts"
+import { goToContactSection, goToView } from "../navigation.ts"
 import { primaryButtonClass, secondaryButtonClass } from "../ui.ts"
 
 export function StoryPage() {
@@ -49,7 +49,7 @@ export function StoryPage() {
           <button type="button" onClick={() => goToView("about")} className={secondaryButtonClass}>
             About us
           </button>
-          <button type="button" onClick={() => goToView("contact")} className={primaryButtonClass}>
+          <button type="button" onClick={() => goToContactSection()} className={primaryButtonClass}>
             Visit the farm
           </button>
         </div>

@@ -58,7 +58,10 @@ export type AboutPanel = {
   id: string
   title: string
   text: string
+  items?: readonly string[]
   image: { src: string; alt: string }
+  href: string
+  ctaLabel: string
 }
 
 export type ServiceCard = {
@@ -82,11 +85,13 @@ export type ImpactTile =
   | {
       id: string
       kind: "stat"
-      value: string
+      value?: string
       label: string
-      text: string
+      text?: string
+      items?: readonly string[]
       href: string
       tone: "cream" | "gold"
+      ctaLabel?: string
     }
 
 export type FarmBlogPost = {

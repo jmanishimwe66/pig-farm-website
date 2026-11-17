@@ -1,15 +1,12 @@
 import { useEffect, useState, type ReactNode } from "react"
 import Menu from "lucide-react/icons/menu"
-import ShoppingCart from "lucide-react/icons/shopping-cart"
 import X from "lucide-react/icons/x"
 import { navItems } from "../data.ts"
 import { useActiveSection } from "../hooks.ts"
-import { goToView, isAppRoute, navigateHref, viewFromPath } from "../navigation.ts"
+import { goToContactSection, goToView, isAppRoute, navigateHref, viewFromPath } from "../navigation.ts"
 import { LogoMark } from "./Icons.tsx"
 
 type HeaderProps = {
-  cartCount: number
-  onCart: () => void
   onGetInTouch: () => void
   onGoHome?: () => void
 }
@@ -89,13 +86,12 @@ function useActiveNavId(sectionId: string) {
   if (pageView === "about" || pageView === "story") return "about"
   if (pageView === "farm-life") return "farm-life"
   if (pageView === "shop" || pageView === "checkout") return "shop"
-  if (pageView === "contact") return "home"
   if (sectionId === "farm-life") return "farm-life"
   if (sectionId === "shop") return "shop"
   return "home"
 }
 
-export function Header({ cartCount, onCart, onGetInTouch, onGoHome }: HeaderProps) {
+export function Header({ onGetInTouch, onGoHome }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false)
   const sectionId = useActiveSection()
   const active = useActiveNavId(sectionId)
@@ -106,6 +102,10 @@ export function Header({ cartCount, onCart, onGetInTouch, onGoHome }: HeaderProp
 
   function handleSectionNav(href: string) {
     closeMenu()
+    if (href === "#contact" || href === "/#contact") {
+      goToContactSection()
+      return
+    }
     if (isAppRoute(href)) {
       navigateHref(href)
       return
@@ -151,13 +151,10 @@ export function Header({ cartCount, onCart, onGetInTouch, onGoHome }: HeaderProp
           })}
         </nav>
         <div className="ml-auto flex items-center gap-1 sm:gap-2">
-          <IconButton label="Open cart" onClick={onCart} badge={cartCount}>
-            <ShoppingCart className="h-[18px] w-[18px]" aria-hidden="true" />
-          </IconButton>
           <button
             type="button"
             onClick={onGetInTouch}
-            className="ml-1 rounded-full bg-brand px-4 py-2.5 font-display text-[11px] font-semibold tracking-[0.12em] text-white uppercase transition duration-300 hover:bg-brand-deep sm:px-5"
+            className="rounded-full bg-brand px-4 py-2.5 font-display text-[11px] font-semibold tracking-[0.12em] text-white uppercase transition duration-300 hover:bg-brand-deep sm:px-5"
           >
             Get in touch
           </button>
@@ -191,9 +188,6 @@ export function Header({ cartCount, onCart, onGetInTouch, onGoHome }: HeaderProp
           </nav>
         </div>
       ) : null}
-      <p className="sr-only" aria-live="polite">
-        {cartCount === 0 ? "Cart is empty" : `${cartCount} items in the cart`}
-      </p>
     </header>
   )
 }

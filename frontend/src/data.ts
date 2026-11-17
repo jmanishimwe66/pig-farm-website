@@ -29,9 +29,11 @@ export const navItems = [
 ] as const
 
 export const heroCopy = {
-  title: "A growing pig business building a sustainable farm",
+  title: "Commercial pig farming. Built on better systems.",
   subtitle:
-    "Strong Livestock raises and sells pigs in Rugerero, Rwanda—improving our land, using manure wisely, and creating more income opportunities.",
+    "Strong Livestock is building a modern pig production business in Rugerero, Rwanda, with upgraded infrastructure, disciplined management, and a long-term commitment to reliable livestock supply.",
+  primaryCta: "View products",
+  secondaryCta: "Explore our services",
   video: images.heroVideo,
   videoLabel: "Farm livestock video — Strong Livestock pig farming",
 } as const
@@ -49,11 +51,11 @@ export const impactTiles: readonly ImpactTile[] = [
   {
     id: "started",
     kind: "stat",
-    value: "2024",
-    label: "Started with two pigs",
-    text: "Strong Livestock began in March 2024 in Rugerero on family land—turning a small idea after high school into a growing pig business.",
+    label: "Our background",
+    text: "Founded in 2024 in Rugerero—two pigs, a herd that grew past 50, then a pause to rebuild pens, water, and breeding plans before expanding again.",
     href: "/story",
     tone: "cream",
+    ctaLabel: "Visit full story",
   },
   {
     id: "breeds",
@@ -62,43 +64,54 @@ export const impactTiles: readonly ImpactTile[] = [
     alt: "Healthy pigs raised on the farm in Rugerero",
   },
   {
-    id: "land",
+    id: "apart",
     kind: "stat",
-    value: "5 ha",
-    label: "Farm land in use",
-    text: "We are building a productive five-hectare farm where pigs and regenerative crops support each other—manure for soil, land for more income.",
-    href: "/contact",
+    label: "What sets our farm apart",
+    items: [
+      "Infrastructure that works",
+      "Better livestock management",
+      "A business built on the numbers",
+    ],
+    href: "/#services",
     tone: "gold",
+    ctaLabel: "Explore our services",
   },
 ]
 
 export const aboutPanels: readonly AboutPanel[] = [
   {
     id: "history",
-    title: "Our Story",
-    text: "We are Strong Livestock, a pig farming business based in Rugerero, Rwanda. We started our journey in March 2024 with just two pigs on land generously provided by our mother. What began as a small idea after finishing high school is growing into a business with a bigger purpose: to produce pigs, use our land better, and create more income opportunities.",
+    title: "Our background",
+    text: "Founded in 2024 by Byusa Armstrong and Inshimwe Arielle in Rugerero. The herd grew past 50 before the founders sold it to improve infrastructure and their breeding strategy.",
     image: {
       src: images.unsplashStoryStart,
       alt: "Farmers at work building a growing livestock business",
     },
+    href: "/story",
+    ctaLabel: "Visit full story",
   },
   {
     id: "mission",
-    title: "What we do",
-    text: "Our main activity is raising and selling pigs to generate income and grow our business. We also see value in pig manure, which can be sold or used on our farm to improve soil fertility and support crop production—so we can earn from more than one farm activity.",
+    title: "Why Strong Livestock?",
+    text: "Improved pig housing. Reliable water. Automated drinkers. Stronger recordkeeping. We are investing in the practical systems behind better commercial farming.",
     image: {
       src: images.pigsPair,
       alt: "Pigs raised for sale and farm income",
     },
+    href: "/story",
+    ctaLabel: "Read more of our story",
   },
   {
     id: "vision",
-    title: "Our Vision",
-    text: "To build a sustainable and productive farm that combines pig farming with crop production, protects the environment, and creates more income opportunities. We want Strong Livestock to become a place where other farmers can learn practical skills and see how different farming activities work together.",
+    title: "What we offer",
+    text: "",
+    items: ["Commercial live pigs", "Piglets & breeding stock", "Farming consultation"],
     image: {
       src: images.unsplashVisionFarmland,
       alt: "Open farmland for regenerative crops and livestock",
     },
+    href: "/shop",
+    ctaLabel: "View products",
   },
 ]
 
@@ -405,6 +418,21 @@ export const contactCopy = {
   text: "Reach us in Rugerero about live pigs, manure, farm visits, or growing with us. We confirm availability and price by phone or WhatsApp.",
 } as const
 
+export const consultationCopy = {
+  eyebrow: "On-farm consultation",
+  title: "Book time on the farm",
+  text: "Hands-on days in Rugerero with our team—see how we house pigs, manage water and feed, and keep records. Pick your length of stay; we confirm dates and payment on WhatsApp.",
+  includes: [
+    "Pens, water, and biosecurity walkthrough",
+    "Feeding programs and daily routines",
+    "Records, costs, and scaling your herd",
+  ],
+  ratePerDayUsd: 15,
+  minDays: 1,
+  maxDays: 14,
+  dayPresets: [1, 2, 3, 5, 7],
+} as const
+
 export const searchEntries: readonly SearchEntry[] = [
   {
     href: "/",
@@ -457,7 +485,7 @@ export const searchEntries: readonly SearchEntry[] = [
     text: "Farm stories on starting, improving the farm, and regenerative plans",
   },
   {
-    href: "/contact",
+    href: "#contact",
     title: "Contact",
     text: `${FARM_PHONE_DISPLAY} · ${FARM_LOCATION}`,
   },

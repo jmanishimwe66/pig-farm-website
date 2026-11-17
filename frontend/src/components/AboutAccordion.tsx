@@ -1,12 +1,12 @@
 import { useState } from "react"
 import { aboutPanels } from "../data.ts"
 import { navigateHref } from "../navigation.ts"
-import { secondaryButtonClass } from "../ui.ts"
 
-const panelCtaClass = `${secondaryButtonClass} mt-4 px-5 py-2.5 text-[11px]`
+const panelLinkClass =
+  "mt-4 inline-block text-sm font-semibold text-brand underline underline-offset-[3px] decoration-brand/60 hover:text-brand-deep hover:decoration-brand"
 
 export function AboutAccordion() {
-  const [activeId, setActiveId] = useState(aboutPanels[0]?.id ?? "mission")
+  const [activeId, setActiveId] = useState(aboutPanels[0]?.id ?? "history")
   const activePanel = aboutPanels.find((panel) => panel.id === activeId) ?? aboutPanels[0]
 
   return (
@@ -20,7 +20,7 @@ export function AboutAccordion() {
 
         <div className="mt-10 grid items-start gap-10 lg:mt-12 lg:grid-cols-2 lg:gap-x-16 lg:gap-y-12">
           <figure
-            className="relative mx-auto aspect-[4/3] w-full max-w-md overflow-hidden rounded-[1.75rem] shadow-md lg:mx-0 lg:max-w-xl lg:justify-self-start"
+            className="relative mx-auto aspect-[4/3] w-full max-w-md overflow-hidden rounded-[1.75rem] shadow-md lg:mx-0 lg:max-w-lg lg:justify-self-start"
             aria-label="Farm imagery for mission, vision, and history"
           >
             {aboutPanels.map((panel) => {
@@ -81,32 +81,36 @@ export function AboutAccordion() {
                   >
                     <div className="overflow-hidden">
                       <div className="px-6 pb-6 sm:px-7 sm:pb-7">
-                        <p className="text-sm leading-relaxed text-ink/80 sm:text-[15px]">{panel.text}</p>
+                        {panel.text ? (
+                          <p className="text-sm leading-relaxed text-ink/80 sm:text-[15px]">{panel.text}</p>
+                        ) : null}
+                        {panel.items ? (
+                          <ul className="space-y-2 text-sm leading-relaxed text-ink/80 sm:text-[15px]">
+                            {panel.items.map((item) => (
+                              <li key={item} className="flex gap-2.5">
+                                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
+                                <span>{item}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        ) : null}
                         <a
-                          href={
-                            panel.id === "history"
-                              ? "/story"
-                              : panel.id === "mission"
-                                ? "/shop"
-                                : "/contact"
-                          }
+                          href={panel.href}
                           onClick={(event) => {
                             event.preventDefault()
-                            navigateHref(
-                              panel.id === "history"
-                                ? "/story"
-                                : panel.id === "mission"
-                                  ? "/shop"
-                                  : "/contact",
-                            )
+                            if (panel.href.startsWith("/#")) {
+                              const id = panel.href.slice(2)
+                              navigateHref("/")
+                              window.setTimeout(() => {
+                                document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" })
+                              }, 50)
+                              return
+                            }
+                            navigateHref(panel.href)
                           }}
-                          className={panelCtaClass}
+                          className={panelLinkClass}
                         >
-                          {panel.id === "history"
-                            ? "Read full story"
-                            : panel.id === "mission"
-                              ? "Browse the shop"
-                              : "Get in touch"}
+                          {panel.ctaLabel}
                         </a>
                       </div>
                     </div>

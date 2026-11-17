@@ -15,6 +15,7 @@ import { SiteFooter } from "./components/SiteFooter.tsx"
 import { StoryPage } from "./components/StoryPage.tsx"
 import { useScrollLock } from "./hooks.ts"
 import {
+  goToContactSection,
   goToView,
   migrateLegacyHashRoute,
   shopCategoryFromPath,
@@ -29,8 +30,24 @@ function syncRoute(
   setShopCategory: (category: ShopCategoryParam) => void,
 ) {
   migrateLegacyHashRoute()
+  const path = window.location.pathname.replace(/\/+$/, "") || "/"
+  if (path === "/contact") {
+    window.history.replaceState(null, "", "/#contact")
+    setView("home")
+    setShopCategory(shopCategoryFromPath())
+    window.setTimeout(() => {
+      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "start" })
+    }, 50)
+    return
+  }
   setView(viewFromPath())
   setShopCategory(shopCategoryFromPath())
+  if (viewFromPath() === "home" && window.location.hash === "#contact") {
+    window.setTimeout(() => {
+      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "start" })
+    }, 50)
+    return
+  }
   window.scrollTo(0, 0)
 }
 
@@ -73,9 +90,9 @@ export default function App() {
     goToView("shop")
   }, [])
 
-  const openContactPage = useCallback(() => {
+  const openContactSection = useCallback(() => {
     setCartOpen(false)
-    goToView("contact")
+    goToContactSection()
   }, [])
 
   const openAboutPage = useCallback(() => {
@@ -102,8 +119,6 @@ export default function App() {
     })
   }, [])
 
-  const cartCount = lines.reduce((sum, line) => sum + line.qty, 0)
-
   return (
     <>
       <a
@@ -113,12 +128,7 @@ export default function App() {
         Skip to content
       </a>
       <div className="min-h-screen bg-canvas text-ink">
-        <Header
-          cartCount={cartCount}
-          onCart={openCart}
-          onGetInTouch={openContactPage}
-          onGoHome={() => goToView("home")}
-        />
+        <Header onGetInTouch={openContactSection} onGoHome={() => goToView("home")} />
         <main>
           {view === "home" ? (
             <>
@@ -145,11 +155,9 @@ export default function App() {
 
           {view === "checkout" ? <CheckoutPage lines={lines} onEditCart={openCart} /> : null}
 
-          {view === "contact" ? <ContactSection variant="page" onOpenCheckout={openCheckout} /> : null}
         </main>
         <SiteFooter
           onOpenShop={openFullShop}
-          onOpenContact={openContactPage}
           onOpenAbout={openAboutPage}
           onOpenStory={() => goToView("story")}
           onOpenFarmLife={() => goToView("farm-life")}

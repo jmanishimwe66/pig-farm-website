@@ -8,14 +8,13 @@ import {
   FARM_PHONE_DISPLAY,
   FARM_WHATSAPP,
 } from "../data.ts"
-import { goToView } from "../navigation.ts"
+import { goToContactSection, goToView } from "../navigation.ts"
 import { LogoMark } from "./Icons.tsx"
 
 const year = new Date().getFullYear()
 
 type SiteFooterProps = {
   onOpenShop?: () => void
-  onOpenContact?: () => void
   onOpenAbout?: () => void
   onOpenStory?: () => void
   onOpenFarmLife?: () => void
@@ -23,7 +22,6 @@ type SiteFooterProps = {
 
 export function SiteFooter({
   onOpenShop,
-  onOpenContact,
   onOpenAbout,
   onOpenStory,
   onOpenFarmLife,
@@ -37,6 +35,16 @@ export function SiteFooter({
 
   return (
     <footer className="bg-brand-deep text-white">
+      <div
+        className="h-px w-full bg-white/10"
+        role="presentation"
+        aria-hidden="true"
+      />
+      <div
+        className="h-[3px] w-full bg-gradient-to-r from-transparent via-ochre/70 to-transparent"
+        role="presentation"
+        aria-hidden="true"
+      />
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1.3fr)_repeat(3,minmax(0,0.7fr))] lg:gap-12">
           <div>
@@ -113,13 +121,13 @@ export function SiteFooter({
                 </button>
               </li>
               <li>
-                <button type="button" onClick={onOpenContact} className="transition hover:text-white">
-                  Contact page
+                <button type="button" onClick={() => goToContactSection()} className="transition hover:text-white">
+                  Book consultation
                 </button>
               </li>
               <li>
-                <button type="button" onClick={() => goSection("#contact")} className="transition hover:text-white">
-                  Farm desk form
+                <button type="button" onClick={() => goToContactSection()} className="transition hover:text-white">
+                  Get in touch
                 </button>
               </li>
             </ul>

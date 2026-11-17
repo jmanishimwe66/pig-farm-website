@@ -1,6 +1,6 @@
 import ArrowRight from "lucide-react/icons/arrow-right"
 import { aboutPage, shopCategories } from "../data.ts"
-import { goToView, navigateHref } from "../navigation.ts"
+import { goToContactSection, goToView, navigateHref } from "../navigation.ts"
 import { primaryButtonClass, secondaryButtonClass } from "../ui.ts"
 
 export function AboutPage() {
@@ -67,7 +67,7 @@ export function AboutPage() {
             </ul>
             <button
               type="button"
-              onClick={() => goToView("contact")}
+              onClick={() => goToContactSection()}
               className={`${primaryButtonClass} mt-8 gap-2`}
             >
               Visit the farm
